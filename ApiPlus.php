@@ -141,7 +141,7 @@ $input->Url=helper::getCurrentUrl();
 $input->RequestGsmOperator=0;
 $input->RequestGsmType=0;
 $input->Extra="";
-$input->TurkcellServiceId="20923735";
+$input->TurkcellServiceId="0";
 
 $result = $client-> SaleWithConfirm( array(
     "token" =>  (array) $token,

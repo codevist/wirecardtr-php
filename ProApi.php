@@ -151,7 +151,7 @@ $input->ErrorPageUrl="http://localhost:5000/fail.php";
 $input->Country="";
 $input->Currency="";
 $input->Extra="";
-$input->TurkcellServiceId="20923735";
+$input->TurkcellServiceId="0";
 
 $result = $client->SaleWithTicket( array(
     "token" =>  (array) $token,
