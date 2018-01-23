@@ -36,6 +36,12 @@
 </form>
 <?php if (!empty($_POST)): ?>
 <?php
+
+     /**
+     * Setting ayarlarını settings sınıfı içerisinden alıyoruz.
+     * Token bilgilerini ve Üye işyeri iptal etmek için  gerekli olan MarketPlaceDeactiveRequest sınıfını formdan gelen bilgilerle doldurup, xml servis çağrısını başlatıyoruz.
+     * Xml Servis çağrısı sonucunda oluşan servis çıktısını ekrana xml formatında yazdırıyoruz.
+     */
     $settings=new Settings();
     $request = new MarketPlaceDeactiveRequest();
     $request->ServiceType = "CCMarketPlace";

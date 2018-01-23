@@ -141,6 +141,11 @@ $context = stream_context_create(array(
     )
 ));
 
+ /**
+     * Setting ayarlarını settings sınıfı içerisinden alıyoruz.
+     * Token bilgilerini ve input alanlarını formdan gelen bilgilerle doldurup, soap servis çağrısını başlatıyoruz.
+     * Saop Servis çağrısı sonucunda oluşan servis çıktısını ekrana xml formatında yazdırıyoruz.
+     */
 $settings=new Settings();
 $wsdlUrl = 'https://www.wirecard.com.tr/services/SubscriberManagementService.asmx?wsdl';
 $client = new SoapClient($wsdlUrl, array('stream_context' => $context,'trace' => 1));

@@ -74,6 +74,11 @@
 </form>
 <?php if (!empty($_POST)): ?>
 <?php
+    /**
+     * Setting ayarlarını settings sınıfı içerisinden alıyoruz.
+     * Token bilgilerini ve CCProxySaleRequest sınıfı parametrelerini formdan gelen bilgilerle doldurup, xml servis çağrısını başlatıyoruz.
+     * Xml Servis çağrısı sonucunda oluşan servis çıktısını ekrana xml formatında yazdırıyoruz.
+     */
     $settings=new Settings();
     $request = new CCProxySaleRequest();
 	$request->ServiceType = "CCProxy";

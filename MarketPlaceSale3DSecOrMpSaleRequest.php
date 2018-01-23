@@ -1,5 +1,12 @@
 <?php
 
+
+/**
+ * Pazaryeri 3dSecure ve 3D secure olmadan ödeme için gerekli olan alanların tanımlandığı sınıftır.
+ * Bu sınıf içerisinde execute metodu ile servis çağrısı başlatılır.
+ * Execute metodu içerisinde tanımlanan "toXmlString" metodu gerekli xml metninin oluşturulmasını sağlar.
+ * Execute metodu içerisinde tanımlanan url adresine oluşturulan xml post edilir.
+ */
 class MarketPlaceSale3DOrMpSaleRequest
 {
     public  $ServiceType; 

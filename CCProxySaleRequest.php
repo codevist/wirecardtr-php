@@ -1,7 +1,10 @@
 <?php
 
 
-
+/**
+ * Bu sınıf içerisinde CCProxySale servis çağrısı yapabilmek için gerekli olan servis alanlarını ifade eder.
+ * Bu sınıf içerisinde execute metodu içerisinde toXmlString metodunda xml servis çağrısını başlatmak için gerekli xml datasını oluşturup, post işelmini başlatıyoruz.
+ */
 class CCProxySaleRequest
 {
     public  $ServiceType; 

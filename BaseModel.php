@@ -77,10 +77,3 @@ class CreditCardInfo
     public $BusinessPhone ; 
     public $MobilePhone ; 
  }
-
-// class SendSMS
-// { 
-//     public  $Token; 
-//     public  $Input; 
-// }
-

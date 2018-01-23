@@ -108,7 +108,11 @@ $context = stream_context_create(array(
     'allow_self_signed' => true
     )
 ));
-
+/**
+ * Setting ayarlarını ve api soap çağrısı yapabilmek için servis url bilgisini ekliyoruz.
+ * Token bilgilerini ve input parametrelerini formdan gelen bilgilerle doldurup, soap servis çağrısını başlatıyoruz.
+ * Soap çağrısı sonucunda oluşan servis çıktısını ekrana xml formatında yazdırıyoruz.
+ */
 $settings=new Settings();
 $wsdlUrl = 'https://www.wirecard.com.tr/services/saleservice.asmx?wsdl';
 $client = new SoapClient($wsdlUrl, array('stream_context' => $context,'trace' => 1));

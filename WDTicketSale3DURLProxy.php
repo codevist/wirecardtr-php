@@ -61,6 +61,12 @@ include('menu.php');
 
 <?php if (!empty($_POST)): ?>
 <?php
+
+    /**
+     * Setting ayarlarını settings sınıfı içerisinden alıyoruz.
+     * Token bilgilerini ve Ortak Ödeme Formu 3D secure ile  ödeme yapmak  için  gerekli olan WDTicketPaymentFormRequest sınıfını formdan gelen bilgilerle doldurup, xml servis çağrısını başlatıyoruz.
+     * Xml Servis çağrısı sonucunda oluşan servis çıktısını ekrana xml formatında yazdırıyoruz.
+     */
     $settings=new Settings();
 	$request = new WDTicketPaymentFormRequest();
 	$request->ServiceType = "WDTicket";
