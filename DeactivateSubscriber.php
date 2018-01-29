@@ -3,7 +3,7 @@
 include('menu.php');
 ?>
 
-<h2> Abonelik Detayları</h2>
+<h2> Abonelik İptal Etme</h2>
 
 
 <form action="" method="post">

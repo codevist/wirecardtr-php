@@ -12,6 +12,7 @@ include ('MarketPlaceAddSubPartnerOrUpdateRequest.php');
 include ('MarketPlaceDeactiveSubPartnerRequest.php');
 include ('MarketPlaceSale3DSecOrMpSaleRequest.php');
 include ('MarketPlaceReleasePaymentRequest.php');
+include ('MarketPlaceMpSaleRequest.php');
 ?>
 
 <html>

@@ -81,11 +81,11 @@
 
     /**
      * Setting ayarlarını settings sınıfı içerisinden alıyoruz.
-     * Token bilgilerini ve Üye işyeri 3D secure olmadan ödeme yapmak  için  gerekli olan MarketPlaceSale3DOrMpSaleRequest sınıfını formdan gelen bilgilerle doldurup, xml servis çağrısını başlatıyoruz.
+     * Token bilgilerini ve Üye işyeri 3D secure olmadan ödeme yapmak  için  gerekli olan MarketPlaceMpSaleRequest sınıfını formdan gelen bilgilerle doldurup, xml servis çağrısını başlatıyoruz.
      * Xml Servis çağrısı sonucunda oluşan servis çıktısını ekrana xml formatında yazdırıyoruz.
      */
     $settings=new Settings();
-    $request = new MarketPlaceSale3DOrMpSaleRequest();
+    $request = new MarketPlaceMpSaleRequest();
 
 	$request->ServiceType = "CCMarketPlace";
     $request->OperationType = "MPSale";
@@ -93,15 +93,15 @@
     $request->Token= new Token();
     $request->Token->UserCode=$settings->UserCode;
     $request->Token->Pin=$settings->Pin;
-    
-    $request->MPAY = "";
+    $request->Price="1";//0.01 TL
+    $request->MPAY = "01";
     $request->IPAddress = helper::get_client_ip();  
     $request->PaymentContent = "Bilgisayar";
     $request->InstallmentCount = $_POST["installmentCount"];
     $request->Description = "BLGSYR01";
     $request->ExtraParam = "";
     $request->Port = "01";
-    $request->CommissionRate = 100;//%1
+    $request->CommissionRate = "1";//%1
     $request->SubPartnerId = $_POST["subPartnerId"];
 
     $request->CreditCardInfo= new CreditCardInfo();
@@ -110,10 +110,14 @@
     $request->CreditCardInfo->ExpireYear=$_POST["expireYear"];
     $request->CreditCardInfo->ExpireMonth=$_POST["expireMonth"];
     $request->CreditCardInfo->Cvv=$_POST["cvv"];
-    $request->CreditCardInfo->Price=1;//0.01 TL
 
-
-    $response = MarketPlaceSale3DOrMpSaleRequest::execute($request); // Market Place 3D Secure servisi başlatılması için gerekli servis çağırısını temsil eder.
+    $request->CardTokenization= new CardTokenization();
+    $request->CardTokenization->RequestType="0";
+    $request->CardTokenization->CustomerId="01";
+    $request->CardTokenization->ValidityPeriod="0";
+    $request->CardTokenization->CCTokenId=Helper::Guid ();
+    
+    $response = MarketPlaceMpSaleRequest::execute($request); // Market Place 3D Secure olmadan ödeme servisi başlatılması için gerekli servis çağırısını temsil eder.
     print "<h3>Sonuç:</h3>";
 	echo "<pre>";
     echo htmlspecialchars ($response);  

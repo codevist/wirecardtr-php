@@ -77,3 +77,10 @@ class CreditCardInfo
     public $BusinessPhone ; 
     public $MobilePhone ; 
  }
+ class CardTokenization
+ {
+    public $RequestType ;
+    public $CustomerId ;
+    public $ValidityPeriod ;
+    public $CCTokenId ;
+ }
