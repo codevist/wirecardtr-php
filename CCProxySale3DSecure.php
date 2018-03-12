@@ -1,10 +1,10 @@
 <?php include('menu.php');?>
-<h2>Market Place 3DSec</h2>
+<h2>CCProxySale 3D Secure</h2>
 <br/>
 <fieldset>
-    <legend><label style="font-weight:bold;width:250px;">MarketPlace Bilgileri</label></legend>
-    <label style="font-weight:bold;">Servis Adı &nbsp; :   &nbsp; </label> CCMarketPlace<br>
-    <label style="font-weight:bold;">Operasyon Adı &nbsp; :&nbsp; </label> MPSale <br>
+    <legend><label style="font-weight:bold;width:250px;">Proxy Sale 3D Secure Bilgileri</label></legend>
+    <label style="font-weight:bold;">Servis Adı &nbsp; :   &nbsp; </label> CCProxy<br>
+    <label style="font-weight:bold;">Operasyon Adı &nbsp; :&nbsp; </label> Sale3DSEC <br>
     <label style="font-weight:bold;">UserCode  &nbsp;:  &nbsp;</label> Wirecard tarafından verilen değer <br>
     <label style="font-weight:bold;">Pin &nbsp;:  &nbsp;</label> Wirecard tarafından verilen değer <br>
     <label style="font-weight:bold;">Fiyat &nbsp;:  &nbsp;</label> 0,01 TL <br>
@@ -13,15 +13,16 @@
     <label style="font-weight:bold;">İşlem İçeriği &nbsp;:  &nbsp;</label>Bilgisayar Ödemesi <br>
     <label style="font-weight:bold;">Açıklama &nbsp;:  &nbsp;</label>Ödeme işleminin tanımı <br>
     <label style="font-weight:bold;">Ekstra Parametre &nbsp;:  &nbsp;</label>Bu alanın boş olarak gönderilmesi gerekmektedir. <br>
-    <label style="font-weight:bold;">CCTokenId &nbsp;:  &nbsp;</label>Ödeme işlemi için kullanılacak kredi kartı için oluşturulmuş benzersiz token değeri<br>
+    
+     
 </fieldset>
 
-<br />
-<br />
+
 <form action="" method="post" class="form-horizontal">
     <fieldset>
         <!-- Form Name -->
-        <legend><label style="font-weight:bold;width:250px;">Kart Bilgileri</label></legend>
+        <legend><label style="font-weight:bold;width:250px;">Kart Bilgileriyle Ödeme</label></legend>
+
         <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="">Kart Sahibi Adı Soyadı:</label>
@@ -47,17 +48,12 @@
             <div class="col-md-4">
                 <input value="123" name="cvv" class="form-control input-md">
             </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="">  SubPartnerId: </label>
-            <div class="col-md-4">
-                <input value="" name="subPartnerId" class="form-control input-md">
-            </div>
-        </div>
-        <div class="form-group">
+
+        </div> 
+         <div class="form-group">
             <label class="col-md-4 control-label" for="">  Taksit Sayısı: </label>
             <div class="col-md-4">
-
+                
                 <select name="installmentCount">
                     <option value="0">Peşin</option>
                     <option value="3">3</option>
@@ -72,39 +68,34 @@
     <div class="form-group">
         <label class="col-md-4 control-label" for=""></label>
         <div class="col-md-4">
-            <button type="submit" id="" name="" class="btn btn-danger"> 3D Secure İle Ödeme Yap</button>
+            <button type="submit" id="" name="" class="btn btn-danger"> Ödeme Yap</button>
         </div>
     </div>
 </form>
 <?php if (!empty($_POST)): ?>
 <?php
-
-     /**
+    /**
      * Setting ayarlarını settings sınıfı içerisinden alıyoruz.
-     * Token bilgilerini ve Üye işyeri 3d secure ile ödeme için  gerekli olan MarketPlaceSale3DOrMpSaleRequest sınıfını formdan gelen bilgilerle doldurup, xml servis çağrısını başlatıyoruz.
+     * Token bilgilerini ve CCProxySaleRequest sınıfı parametrelerini formdan gelen bilgilerle doldurup, xml servis çağrısını başlatıyoruz.
      * Xml Servis çağrısı sonucunda oluşan servis çıktısını ekrana xml formatında yazdırıyoruz.
      */
-
     $settings=new Settings();
-    $request = new MarketPlaceSale3DOrMpSaleRequest();
-	$request->ServiceType = "CCMarketPlace";
+    $request = new CCProxySale3DSecureRequest();
+	$request->ServiceType = "CCProxy";
     $request->OperationType = "Sale3DSEC";
 
     $request->Token= new Token();
     $request->Token->UserCode=$settings->UserCode;
     $request->Token->Pin=$settings->Pin;
-
+    $request->ErrorURL = "http://localhost:5000/fail.php";
+    $request->SuccessURL = "http://localhost:5000/success.php";
     $request->MPAY = "";
     $request->IPAddress = helper::get_client_ip();  
     $request->PaymentContent = "Bilgisayar";
     $request->InstallmentCount = $_POST["installmentCount"];
     $request->Description = "BLGSYR01";
     $request->ExtraParam = "";
-    $request->Port = "01";
-    $request->ErrorURL = "http://localhost:5000/fail.php";
-    $request->SuccessURL = "http://localhost:5000/success.php";
-    $request->CommissionRate = 100;//%1
-    $request->SubPartnerId = $_POST["subPartnerId"];
+    $request->Port = "123";
 
     $request->CreditCardInfo= new CreditCardInfo();
     $request->CreditCardInfo->CreditCardNo=$_POST["creditCardNo"];
@@ -120,13 +111,13 @@
     $request->CardTokenization->ValidityPeriod="0";
     $request->CardTokenization->CCTokenId=Helper::Guid ();
 
-
-    $response = MarketPlaceSale3DOrMpSaleRequest::execute($request); // Market Place 3D Secure servisi başlatılması için gerekli servis çağırısını temsil eder.
+    $response = CCProxySale3DSecureRequest::execute($request); // CCProxySale3dSecure servisi başlatılması için gerekli servis çağırısını temsil eder.
     print "<h3>Sonuç:</h3>";
 	echo "<pre>";
     echo htmlspecialchars ($response);  
     echo "</pre>";
 	?>
 
-<?php endif; ?>	 
+<?php endif; ?>	  
+
 <?php include('footer.php');?>

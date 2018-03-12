@@ -2,25 +2,26 @@
 
 
 /**
- * Bu sınıf içerisinde CCProxySale servis çağrısı yapabilmek için gerekli olan servis alanlarını ifade eder.
+ * Bu sınıf içerisinde CCProxySale3DSecure servis çağrısı yapabilmek için gerekli olan servis alanlarını ifade eder.
  * Bu sınıf içerisinde execute metodu içerisinde toXmlString metodunda xml servis çağrısını başlatmak için gerekli xml datasını oluşturup, post işelmini başlatıyoruz.
  */
-class CCProxySaleRequest
+class CCProxySale3DSecureRequest
 {
     public  $ServiceType; 
     public  $OperationType; 
     public  $Token; 
     public  $CreditCardInfo; 
     public  $MPAY; 
+    public  $Port; 
+    public  $ErrorURL; 
+    public  $SuccessURL; 
     public  $IPAddress; 
     public  $PaymentContent; 
     public  $InstallmentCount; 
     public  $Description; 
     public  $ExtraParam; 
     public  $CardTokenization; 
-    public  $Port; 
-
-    public static function Execute(CCProxySaleRequest $request)
+    public static function Execute(CCProxySale3DSecureRequest $request)
     {
         return  restHttpCaller::post("https://www.wirecard.com.tr/SGate/Gate" , $request->toXmlString());
     }    
@@ -51,12 +52,16 @@ class CCProxySaleRequest
         "        <CCTokenId>" . urlencode($this->CardTokenization->CCTokenId) . "</CCTokenId>\n" .
         "    </CardTokenization>\n" .
         "    <MPAY>" . $this->MPAY . "</MPAY>\n" .
+        "    <Port>" . $this->Port . "</Port>\n" . 
+        "    <ErrorURL>" . $this->ErrorURL . "</ErrorURL>\n" . 
+        "    <SuccessURL>" . $this->SuccessURL . "</SuccessURL>\n" . 
         "    <IPAddress>" . $this->IPAddress . "</IPAddress>\n" .
         "    <PaymentContent>" . $this->PaymentContent . "</PaymentContent>\n" .
         "    <InstallmentCount>" . $this->InstallmentCount . "</InstallmentCount>\n" .
         "    <Description>" . $this->Description . "</Description>\n" .
         "    <ExtraParam>" . $this->ExtraParam . "</ExtraParam>\n" .
         "</WIRECARD>";
+       
          return $xml_data;
     }
 }

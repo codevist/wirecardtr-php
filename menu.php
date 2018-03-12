@@ -13,6 +13,7 @@ include ('MarketPlaceDeactiveSubPartnerRequest.php');
 include ('MarketPlaceSale3DSecOrMpSaleRequest.php');
 include ('MarketPlaceReleasePaymentRequest.php');
 include ('MarketPlaceMpSaleRequest.php');
+include ('CCProxySale3DSecureRequest.php');
 ?>
 
 <html>
@@ -53,7 +54,15 @@ include ('MarketPlaceMpSaleRequest.php');
             </ul>
         </li>
         <li>
-            <a href="CCProxySale.php">Ödeme Formu</a>
+            <a href="#paymentForm" data-toggle="collapse" aria-expanded="false">Ödeme Formu</a>
+            <ul class="collapse list-unstyled" id="paymentForm">
+                <li><a href="CCProxySale3DSecure.php">3D Secure İle Ödeme</a></li>
+                <a href="CCProxySale.php">3d Secure Olmadan Ödeme Formu</a>
+               
+            </ul>
+        </li>
+        <li>
+          
             
         </li>
         <li>
@@ -72,6 +81,13 @@ include ('MarketPlaceMpSaleRequest.php');
                 <li><a href="MarketPlaceSale3DSec.php">3D Secure ile Ödeme </a></li>
                 <li><a href="MarketPlaceMPSale.php">3D Secure olmadan Ödeme </a></li>
                 <li><a href="MarketPlaceReleasePayment.php">Ödeme Onay Servisi </a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#transactionQuery" data-toggle="collapse" aria-expanded="false">İşlem Sorgulama</a>
+            <ul class="collapse list-unstyled" id="transactionQuery">
+                <li><a href="TransactionQueryOrder.php">Sipariş Numarası ile İşlem Sorgulama</a></li>
+                <li><a href="TransactionQueryMPay.php">MPAY ile İşlem Sorgulama</a></li>
             </ul>
         </li>
             </ul>  
